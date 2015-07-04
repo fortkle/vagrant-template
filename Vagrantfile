@@ -13,4 +13,6 @@ Vagrant.configure(2) do |config|
   config.vm.synced_folder "./vagrant_home", "/home/vagrant/share",
     :create => true, :owner => 'vagrant', :group => 'vagrant',
     :mount_options => ['dmode=775,fmode=775']
+
+  config.vm.provision :shell, :path => "bootstrap.sh", privileged: false
 end
