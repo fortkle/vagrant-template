@@ -9,10 +9,13 @@ sudo chkconfig iptables off
 sudo cp -p /etc/selinux/config /etc/selinux/config.bk
 sed -i -e "s|^SELINUX=.*|SELINUX=disable|" /etc/selinux/config
 
+# Timezoneの設定
+sudo cp /usr/share/zoneinfo/Japan /etc/localtime
+
 # rpmforge, epel, remiのリポジトリを追加
+sudo rpm -ivh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
 sudo rpm -ivh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 sudo rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-sudo rpm -ivh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
 sudo yum --disablerepo=epel -y update  ca-certificates
 
 # デフォルトで上記リポジトリを使わないように変更
@@ -22,6 +25,25 @@ sudo sed -i -e "s/enabled = 2/enabled = 0/g" /etc/yum.repos.d/remi.repo
 
 # ライブラリをアップデート
 sudo yum -y update
+
+# 必要なライブラリのインストール（git）
+sudo yum install git -y
+git config --global user.name "fortkle"
+git config --global user.email fortkle@gmail.com
+
+# 必要なライブラリのインストール（PHP5.4.42）
+sudo yum -y install --enablerepo=remi php php-pdo php-devel php-mbstring php-mcrypt php-mysql php-phpunit-PHPUnit php-pecl-xdebug php-cli php-common gd-last ImageMagick-last
+
+# 必要なライブラリのインストール（Apache）
+sudo yum -y install httpd
+sudo chkconfig httpd on
+sudo service httpd start
+
+# 必要なライブラリのインストール（MySQL）
+sudo yum -y install --enablerepo=remi mysql mysql-devel mysql-server mysql-utilities
+sudo touch /var/lib/mysql/mysql.sock
+sudo chown mysql:mysql /var/lib/mysql
+sudo /etc/init.d/mysqld restart
 
 # 必要なライブラリのインストール（ag）
 sudo yum install pcre pcre-devel -y
@@ -105,6 +127,9 @@ tar -C ~/src -xzf peco_linux_amd64.tar.gz
 cp -rp ~/src/peco_linux_amd64/peco ~/local/bin/
 cd ~/bin
 ln -s ~/local/bin/peco peco
+cd ~/
+ln -s .dotfiles/.config
+
 
 # Provisioning Completed
 cd ~

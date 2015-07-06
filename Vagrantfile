@@ -14,5 +14,13 @@ Vagrant.configure(2) do |config|
     :create => true, :owner => 'vagrant', :group => 'vagrant',
     :mount_options => ['dmode=775,fmode=775']
 
+  Encoding.default_external = 'UTF-8'
+  
+  # Network delay measures in IPv6 and DNS
+  config.vm.provider :virtualbox do |vb|
+    vb.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
+    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "off"]
+  end
+
   config.vm.provision :shell, :path => "bootstrap.sh", privileged: false
 end
