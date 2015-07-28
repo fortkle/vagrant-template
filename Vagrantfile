@@ -17,10 +17,10 @@ Vagrant.configure(2) do |config|
   Encoding.default_external = 'UTF-8'
   
   # Network delay measures in IPv6 and DNS
-  config.vm.provider :virtualbox do |vb|
-    vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
-    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-  end
+  #config.vm.provider :virtualbox do |vb|
+  #  vb.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
+  #  vb.customize ["modifyvm", :id, "--natdnshostresolver1", "off"]
+  #end
 
   config.vm.provision :shell, :path => "bootstrap.sh", privileged: false
 end
