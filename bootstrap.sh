@@ -9,6 +9,9 @@ sudo chkconfig iptables off
 sudo cp -p /etc/selinux/config /etc/selinux/config.bk
 sed -i -e "s|^SELINUX=.*|SELINUX=disable|" /etc/selinux/config
 
+# Network遅延の対応
+sudo echo "options single-request-reopen" | sudo tee -a /etc/resolv.conf
+
 # Timezoneの設定
 sudo cp /usr/share/zoneinfo/Japan /etc/localtime
 
