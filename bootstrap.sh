@@ -53,9 +53,12 @@ sudo yum install pcre pcre-devel -y
 sudo yum install xz xz-devel -y
 
 # 必要なライブラリのインストール（tmux）
-sudo yum install curl
-sudo yum install wget gcc make
-sudo yum install ncurses ncurses-devel
+sudo yum install curl -y
+sudo yum install wget gcc make -y
+sudo yum install ncurses ncurses-devel -y
+
+# 必要なライブラリのインストール（Ruby）
+sudo yum install ruby ruby-devel npm -y
 
 # フォルダの作成
 cd ~/
@@ -66,7 +69,7 @@ ln -snf .dotfiles/.bashrc
 
 # Vim7.4のインストール
 sudo yum -y install gcc
-sudo yum install ncurses-devel
+sudo yum install ncurses-devel -y
 cd ~/src
 wget ftp://ftp.vim.org/pub/vim/unix/vim-7.4.tar.bz2
 tar jxvf vim-7.4.tar.bz2
