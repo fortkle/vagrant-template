@@ -59,6 +59,7 @@ sudo yum install ncurses ncurses-devel -y
 
 # 必要なライブラリのインストール（Ruby）
 sudo yum install ruby ruby-devel npm -y
+npm install -g gulp
 
 # フォルダの作成
 cd ~/
